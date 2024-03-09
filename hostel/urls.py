@@ -29,4 +29,6 @@ urlpatterns = [
     path('/show_request/', views.show_request, name='show_request'),
     path('/show_vacancy/', views.vacant_room, name='show_vacancy'),
     path('/show_students/', views.show_students, name='show_students'),
+    # path('roommate/', views.roommate, name='roommate'),
+    # path('roomie/', views.roomie, name='roomie'),
 ]

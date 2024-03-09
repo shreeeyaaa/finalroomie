@@ -41,14 +41,22 @@
                         </a>
                     </li>
                     <li class="breadcrumb-active">
-                        <a href="/index" style="font-size: 20px">Hostel Management</a>
+                        <a href="/index" style="font-size: 20px">Roomie</a>
                     </li>
                 </ul>
 
                 <!-- navbar for right -->
+                <!-- <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown dropdown-fuse">
+                        <a href="/roomie" class="dropdown-toggle" data-toggle="dropdown">
+                            <span class="hidden-xs">Find Roommate </span>
+                        </a>
+                       
+                    </li>
+                </ul> -->
+
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown dropdown-fuse">
-                        Hi
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <span class="hidden-xs">{{ user.first_name }} </span>
                         </a>
@@ -60,6 +68,17 @@
 
                             </li>
                         </ul>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <!-- <li class="dropdown dropdown-fuse">
+                        <a href="/roomie" class="dropdown-toggle" data-toggle="dropdown">
+                            <span class="hidden-xs">Find Roommate </span>
+                        </a>
+                       
+                    </li> -->
+                    <li class="nav-but">
+                        <a class="btn btn-outline-light" href="/roomie/show_roomies">Find Roommate</a>
                     </li>
                 </ul>
         </header>
