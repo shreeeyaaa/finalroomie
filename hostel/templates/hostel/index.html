@@ -1,0 +1,476 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+
+
+<head>
+    <meta charset="utf-8">
+    <title>Hostel Management</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="">
+    <meta name="author" content="ThemeREX">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel='stylesheet' type='text/css' href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700'>
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,300,300italic,400italic,700,700italic' rel='stylesheet'
+        type='text/css'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="http://alliance-html.themerex.net/assets/skin/default_skin/css/theme.css">
+    <link rel="stylesheet" type="text/css" href="http://alliance-html.themerex.net/assets/allcp/forms/css/forms.css">
+    <link rel="shortcut icon" href="http://alliance-html.themerex.net/assets/img/favicon.ico">
+
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css'%}">
+    
+
+
+</head>
+
+<body class="forms-layouts">
+
+    <div id="main">
+        <header class="navbar navbar-fixed-top bg-dark">
+            <!-- navbar for leftside -->
+            <div>
+
+                <ul class="nav navbar-nav navbar-left">
+                    <li class='breadcrumb-icon' style="background-color: rgb(255, 0, 0)">
+                        <a href="/">
+                            <span class="fa fa-home"></span>
+                        </a>
+                    </li>
+                    <li class="breadcrumb-active">
+                        <a href="/index" style="font-size: 20px">Hostel Management</a>
+                    </li>
+                </ul>
+
+                <!-- navbar for right -->
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown dropdown-fuse">
+                        Hi
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <span class="hidden-xs">{{ user.first_name }} </span>
+                        </a>
+                        <ul class="dropdown-menu list-group keep-dropdown w250" role="menu">
+                            <li class="dropdown-header clearfix">
+                                <a href="/logout/" class="btn btn-primary btn-sm btn-bordered">
+                                    <span class="fa fa-power-off pr5"></span> Logout
+                                </a>
+
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+        </header>
+        <!-- Topbar -->
+        <header id="topbar" class="alt" style="margin-top: 75px;">
+            <div class="topbar-left">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-link">
+                        <a href="/index"> Home</a>
+                    </li>
+                    <li class="breadcrumb-current-item"></li>
+                </ol>
+                <div class="search-bar">
+                    <button id="options-icon" onclick="toggleDropdown()">⯆</button>
+                    <input type="text" id="search-input" placeholder="Search">
+                    <button id="search-btn" onclick="search()">🔍</button>
+                    <div id="dropdown">
+                        <div class="dropdown-option" onclick="selectOption('nearby hostels')"  id = "sort_by_hostels">
+                            Sort by location
+                        </div>
+                        <div class="dropdown-option" onclick="selectOption('pricing')" id ="sort_by_pricing">Sort by pricing</div>
+                        <div class="dropdown-option" onclick="selectOption('popularity')">Sort by popularity</div>
+                    </div>
+                </div>
+
+            </div>
+        </header>
+
+        
+
+        <!-- Content for Student -->
+        <div id="content" class="animated fadeIn">
+            <section id="hostels_section">
+
+            <h3 class="text-center mt10 mb25 fw400" style="margin-top: 75px;"> Welcome {{user.first_name}} </h3>
+           
+            <div class="row">
+
+                <!-- Modal HTML structure -->
+<div id="detailsModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <!-- Add content for details here -->
+        
+        
+    </div>
+</div>
+
+                {% for hostel in hostels %}
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="bs-component">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <span class="panel-title">{{ hostel.name }}</span>
+                                </div>
+                                <div class="panel-body" style="height: 300px; overflow: hidden; text-align: center;">
+                                    
+                                    <img src="{{ hostel.images.first.image.url }}" alt="{{ hostel.name }}" style="max-width: 100%; max-height: 100%; width: auto; margin: auto; display: inline-block; width: 300px;
+                                    height: 200px; ">
+                                    <!-- Assuming you want to display the first image of the hostel -->
+                                    <p></br></p>
+                                    
+                                        <button class="btn btn-primary btn-lg view-details-btn" onclick="openModal('{{ hostel.name }}')">
+                                            <span class="button-text">View Details</span>
+                                            <span class="button-icon">▶</span>
+                                        </button>
+                                  
+                                    
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+
+            </div>
+        </section>
+
+          
+           
+     
+
+        
+        <section id="content_wrapper">
+            <section id="content" class="table-layout animated fadeIn">
+            </section>
+    </div>
+
+    <style>
+        .allcp-form .panel.heading-border:before,
+        .allcp-form .panel .heading-border:before {
+            transition: all 0.7s ease;
+        }
+    </style>
+
+
+<script>
+    // Add the functions for the new search bar
+    let dropdown = document.getElementById("dropdown");
+
+    function toggleDropdown() {
+        dropdown.style.display = (dropdown.style.display === "none" || dropdown.style.display === "") ? "flex" : "none";
+    }
+
+    function selectOption(option) {
+        document.getElementById("search-input").value = option;
+        toggleDropdown();
+        if (option === 'Sort by location') {
+        sortHostels();
+    }
+    else if(option == 'pricing')
+    {
+        sortHostelsP();
+    }
+    
+    // Close the dropdown after selecting an option
+    }
+
+    <!-- Add the functions for the new search bar -->
+
+
+    function search() {
+        // Add your search logic here
+        var searchInput = document.getElementById('search-input').value;
+
+        // Make an AJAX request to Django view
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/search_hostel/', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    // Handle the response from Django
+                    console.log(xhr.responseText);
+                    var responseData = JSON.parse(xhr.responseText);
+                     console.log(responseData);
+                     try {
+                var responseData = JSON.parse(xhr.responseText);
+                console.log(responseData);
+
+                // Check if search_results is defined and an array
+                if (Array.isArray(responseData.search_results)) {
+                    var hostelsSection = document.getElementById("hostels_section");
+
+                    // Clear previous results
+                    hostelsSection.innerHTML = "";
+
+                    // Iterate over the search_results
+                    responseData.search_results.forEach(function (hostel) {
+                        // Create hostel-box container
+                        var hostelBox = document.createElement("div");
+                        hostelBox.classList.add("hostel-box");
+
+                        var imageContainer = document.createElement("div");
+                            imageContainer.classList.add("image-container");
+
+                            // Check if 'images' is defined and not empty
+                            if (hostel.images && hostel.images.length > 0) {
+                                // Create img element for the first photo
+                                var hostelImage = document.createElement("img");
+                                hostelImage.src = hostel.images[0].url;
+                                hostelImage.alt = "Hostel Image";
+                                hostelImage.classList.add("hostel-image");
+                                // Append img element to image-container
+                                imageContainer.appendChild(hostelImage);
+                            } else {
+                                console.error("Images array is not defined or is empty for hostel:", hostel);
+                            }
+
+                            // Append image-container to hostel-box
+                            hostelBox.appendChild(imageContainer);
+                            hostelBox.style.display = "flex"; // Use flexbox for layout
+                            hostelBox.style.border = "1px solid #ccc";
+                             hostelBox.style.marginRight = "10px";
+                            hostelBox.style.width = "1450px";
+                            hostelBox.style.marginBottom = "10px";
+                            hostelBox.style.padding = "10px";
+                            hostelBox.style.boxSizing = "border-box";
+                            hostelBox.style.alignItems = "center"; // Center items vertically
+
+
+                        // Create hostel-info container
+                        var hostelInfo = document.createElement("div");
+                        hostelInfo.classList.add("hostel-info");
+
+                        // Create h4 element
+                        var h4Element = document.createElement("h4");
+                        h4Element.innerHTML = `${hostel.name}`;
+                        hostelInfo.appendChild(h4Element);
+
+                        // Create button element
+                        var buttonElement = document.createElement("button");
+                        buttonElement.classList.add("btn");
+                        buttonElement.classList.add("btn-primary");
+                        buttonElement.classList.add("btn-lg");
+                        buttonElement.classList.add("view-details-btn");
+                        var buttonIcon = document.createElement("span");
+                        buttonIcon.className = "button-icon";
+                        buttonIcon.innerHTML = "▶";
+                        buttonElement.appendChild(buttonIcon);
+                      
+                        buttonElement.innerHTML = "View Details";
+                        hostelInfo.appendChild(buttonElement);
+                        buttonElement.onclick = function () {
+                            console.log(hostel.name)
+                            openModal(hostel.name);  // Call your function with appropriate parameters
+                        };
+
+                        // Append hostel-info to hostel-box
+                        hostelBox.appendChild(hostelInfo);
+
+                        // Append hostel-box to hostelsSection
+                        hostelsSection.appendChild(hostelBox);
+
+                        // Create the modal container
+                    var modalContainer = document.createElement("div");
+                    modalContainer.id = "detailsModal";
+                    modalContainer.classList.add("modal");
+
+// Create the modal content
+            var modalContent = document.createElement("div");
+                modalContent.classList.add("modal-content");
+
+// Create the close button
+                var closeButton = document.createElement("span");
+                closeButton.classList.add("close");
+                closeButton.innerHTML = "&times;";
+                closeButton.onclick = closeModal; // Attach onclick event to close the modal
+
+// Add the close button to the modal content
+modalContent.appendChild(closeButton);
+
+// Append the modal content to the modal container
+modalContainer.appendChild(modalContent);
+
+// Append the modal container to the document body
+    document.body.appendChild(modalContainer);
+
+                    });
+                } else {
+                    console.error("search_results is not an array or is undefined");
+                }
+            } catch (error) {
+                console.error("Error parsing JSON response:", error);
+            }
+
+
+                  
+                } else {
+                    // Handle error response
+                    document.getElementById("hostels_section").innerHTML = "Error while searching.";
+                }
+            }
+        };
+
+        // Send the POST request with searchInput as form data
+        var data = 'search_query=' + encodeURIComponent(searchInput);
+        xhr.send(data);
+    }
+
+
+
+
+    // Close the dropdown if the user clicks outside of it
+    window.onclick = function (event) {
+        if (!event.target.matches('#options-icon')) {
+            dropdown.style.display = 'none';
+        }
+    }
+</script>
+<!-- ... (your existing HTML code) -->
+
+<!-- Add the following script for "View Details" functionality -->
+
+<script>
+    // Add this script along with your existing scripts
+function openModal(hostelName) {
+   
+    var modal = document.getElementById('detailsModal');
+    modal.style.display = 'block';
+    document.getElementById('topbar').style.opacity = '0';
+    
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', '/get_hostel_details/?name=' + encodeURIComponent(hostelName), true);
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+
+            var responseData = JSON.parse(xhr.responseText);
+            // Update modal content with hostel details
+            var modalContent = modal.querySelector('.modal-content');
+            modalContent.innerHTML = `<span class="close" onclick="closeModal()">&times;</span>
+                                    <h2>Hostel Details</h2>` + xhr.responseText;
+        }
+
+            if (responseData.name && responseData.location) {
+                // Display name and address
+                var hostelNameElement = document.createElement('p');
+                hostelNameElement.innerHTML = `<strong>Name:</strong> ${responseData.name}`;
+                modalContent.appendChild(hostelNameElement);
+
+                var hostelAddressElement = document.createElement('p');
+                hostelAddressElement.innerHTML = `<strong>Address:</strong> ${responseData.location}`;
+                var hostelContactElement = document.createElement('p');
+                hostelContactElement.innerHTML = `<strong>Contact no:</strong> ${responseData.contact}`;
+                modalContent.appendChild(hostelAddressElement);
+                modalContent.appendChild(hostelContactElement);
+
+                var hostelAvailableElement = document.createElement('p');
+                hostelAvailableElement.innerHTML = `<strong>Available rooms:</strong> ${responseData.available_rooms}`;
+                modalContent.appendChild(hostelAvailableElement);
+
+               
+
+                if (responseData.images && responseData.images.length > 0) {
+                    var imagesContainer = document.createElement('div');
+                    imagesContainer.classList.add('images-container');
+
+                    responseData.images.forEach(function (image) {
+                        var imageElement = document.createElement('img');
+                        imageElement.src = image.url;
+                        imageElement.alt = 'Hostel Image';
+                        imageElement.classList.add('hostel-image');
+                        imagesContainer.appendChild(imageElement);
+                    });
+
+                    modalContent.appendChild(imagesContainer);
+                }
+                } else {
+                console.error('Name or address is not defined in hostel details:', responseData);
+             }   
+
+    };
+    xhr.send();
+    
+}
+
+function closeModal() {
+    var modal = document.getElementById('detailsModal');
+    modal.style.display = 'none';
+    document.getElementById('topbar').style.opacity = '1';
+}
+
+// Close the modal if the user clicks outside of it
+window.onclick = function (event) {
+    var modal = document.getElementById('detailsModal');
+    if (event.target === modal) {
+        closeModal();
+    }
+};
+
+</script>
+
+<!-- ... (your existing HTML code) -->
+
+
+<script>
+    function sortHostels() {
+        // Make an asynchronous request to the server
+        let xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (this.readyState === 4 && this.status === 200) {
+                // Replace the content of the hostels section with the updated content
+                document.getElementById("hostels_section").innerHTML = this.responseText;
+            }
+        };
+        
+        
+            xhr.open("GET", "/sort_by_hostels/", true);
+            xhr.send();
+
+        
+       
+    }
+    
+
+    // Call the sortHostels function when "Sort by hostels" is selected
+    document.getElementById("sort_by_hostels").addEventListener("click", sortHostels);
+
+
+    function sortHostelsP() {
+        // Make an asynchronous request to the server
+        let xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (this.readyState === 4 && this.status === 200) {
+                // Replace the content of the hostels section with the updated content
+                document.getElementById("hostels_section").innerHTML = this.responseText;
+            }
+        };
+        
+        
+            xhr.open("GET", "/sort_by_pricing/", true);
+            xhr.send();
+
+        
+       
+    }
+    
+
+    // Call the sortHostels function when "Sort by hostels" is selected
+    document.getElementById("sort_by_pricing").addEventListener("click", sortHostelsP);
+</script>
+    <script src="http://alliance-html.themerex.net/assets/js/jquery/jquery-1.11.3.min.js"></script>
+    <script src="http://alliance-html.themerex.net/assets/js/jquery/jquery_ui/jquery-ui.min.js"></script>
+
+    <script src="http://alliance-html.themerex.net/assets/js/plugins/highcharts/highcharts.js"></script>
+
+    <script src="http://alliance-html.themerex.net/assets/allcp/forms/js/jquery-ui-monthpicker.min.js"></script>
+
+    <script src="http://alliance-html.themerex.net/assets/js/utility/utility.js"></script>
+    <script src="http://alliance-html.themerex.net/assets/js/demo/demo.js"></script>
+    <script src="http://alliance-html.themerex.net/assets/js/main.js"></script>
+    <script src="http://alliance-html.themerex.net/assets/js/demo/widgets_sidebar.js"></script>
+</body>
