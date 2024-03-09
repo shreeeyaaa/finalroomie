@@ -1,11 +1,11 @@
-
+<!-- 
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>User Profiles</title>
-  <!-- <link rel="stylesheet" href="style.css"> -->
+  
   <style>
     body {
   font-family: Arial, sans-serif;
@@ -19,7 +19,7 @@
   display: flex;
   justify-content: space-between;
   margin: 20px;
-  max-width: 1000px; /* Limit container width for responsiveness */
+  max-width: 1000px; 
   padding: 20px;
   border-radius: 5px;
   background-color: #fff;
@@ -27,7 +27,7 @@
 }
 
 .profile {
-  flex: 0 0 200px; /* Fix image width */
+  flex: 0 0 200px; 
   display: flex;
   justify-content: center;
   align-items: center;
@@ -40,12 +40,12 @@
 }
 
 .details {
-  flex: 1; /* Flexible width for details */
+  flex: 1; 
   padding: 20px;
 }
 
 .details h2 {
-  color: #d9534f; /* Slightly red color */
+  color: #d9534f; 
   margin-bottom: 10px;
 }
 
@@ -113,16 +113,131 @@
   </div>
 
   <div class="navigation">
-    <!-- <form action="{% url 'show_profiles' %}" method="get">
-      <button type="submit" name="backward">Previous</button>
-      <button type="submit" name="forward">Next</button>
-    </form> -->
+    
     <form action="{% url 'show_profiles' %}" method="get">
         <input type="hidden" name="person_name" value="{{ current_user_data.name }}">
         <button type="submit" name="backward">Previous</button>
         <button type="submit" name="forward">Next</button>
     </form>
     
+  </div>
+
+</body>
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Profiles</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f7f7f7;
+      color: #333;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 20px auto; /* Center the container horizontally */
+      padding: 20px;
+      border-radius: 10px;
+      background-color: #fff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .profile {
+      text-align: center;
+    }
+
+    .profile img {
+      max-width: 200px;
+      height: auto;
+      border-radius: 50%;
+    }
+
+    .details {
+      margin-top: 20px;
+    }
+
+    .details h2 {
+      color: #d9534f;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    .details p {
+      margin-bottom: 5px;
+      line-height: 1.5;
+    }
+
+    .info {
+      margin-bottom: 15px;
+      text-align: center;
+    }
+
+    .details .info strong {
+      font-weight: bold;
+    }
+
+    .hobbies {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      text-align: center;
+    }
+
+    .navigation {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .navigation button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #d9534f;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.2s ease-in-out;
+      margin: 0 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="profile">
+      <img src="{{ current_user_data.image_path }}" alt="{{ current_user_data.name }}">
+    </div>
+    <div class="details">
+      <h2>{{ current_user_data.name }}</h2>
+      <div class="info">
+        <p><strong>Age:</strong> {{ current_user_data.age }}</p>
+        <p><strong>Institute:</strong> {{ current_user_data.name_of_institute }}</p>
+        <p><strong>Temporary Address:</strong> {{ current_user_data.temporary_address }}</p>
+        <p><strong>Permanent Address:</strong> {{ current_user_data.permanent_address }}</p>
+        <p><strong>Bio:</strong> {{ current_user_data.bio }}</p>
+      </div>
+      <ul class="hobbies">
+        <li><strong>Hobbies:</strong></li>
+        {% for hobby in current_user_data.hobbies %}
+          <li>{{ hobby }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+
+  <div class="navigation">
+    <form action="{% url 'show_profiles' %}" method="get">
+        <input type="hidden" name="person_name" value="{{ current_user_data.name }}">
+        <button type="submit" name="backward">Previous</button>
+        <button type="submit" name="forward">Next</button>
+    </form>
   </div>
 
 </body>
