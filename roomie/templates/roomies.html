@@ -137,8 +137,14 @@
                         <h3 class="text-center">{{ person.name }}</h3> <!-- Center the name -->
                         <p class="text-center" style="color:palevioletred;">Location: {{ person.temporary_address }}</p> <!-- Center the location -->
                         <!-- <p class="text-center">Passion: {{ person.passion }}</p> -->
+<<<<<<< HEAD
                         <div class="text-center"> <!-- Center the button -->" 
                             <a href="/roomie/show_profiles" class="btn btn-default btn-lg mb-3;" style="color: white; background-color: palevioletred">View</a> <!-- Adjusted margin -->
+=======
+                        <div class="text-center"> <!-- Center the button -->
+                            <!-- <a href="/roomie/show_profiles" class="btn btn-default btn-lg mb-3">View</a> Adjusted margin -->
+                            <a href="/roomie/show_profiles?person_name={{ person.name }}" class="btn btn-default btn-lg mb-3">View</a> <!-- Adjusted margin -->
+>>>>>>> d101bc8e5211a640b120aa0a5816dfb6e5a65771
                         </div>
                     </div>
                 </div>

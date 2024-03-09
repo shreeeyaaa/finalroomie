@@ -141,7 +141,11 @@ margin-left: 4px;
         #options-icon {
             cursor: pointer;
             padding: 10px;
+<<<<<<< HEAD
             background-color: palevioletred;
+=======
+            background-color: #b7173f;
+>>>>>>> d101bc8e5211a640b120aa0a5816dfb6e5a65771
             color: #fff;
             border: none;
             border-radius: 5px 0 0 5px;
@@ -158,7 +162,11 @@ margin-left: 4px;
         #search-btn {
             cursor: pointer;
             padding: 10px;
+<<<<<<< HEAD
             background-color: palevioletred;
+=======
+            background-color: #b7173f;
+>>>>>>> d101bc8e5211a640b120aa0a5816dfb6e5a65771
             color: #fff;
             border: none;
             border-radius: 5px 0 0 5px;
