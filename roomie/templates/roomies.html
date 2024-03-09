@@ -1,6 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html>
+    
 
 <head>
     <meta charset="utf-8">
@@ -22,6 +23,47 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css'%}">
 
 </head>
+<style>
+    .filter-form {
+            display: flex;
+            flex-direction: row; /* Horizontal layout */
+            align-items: center;
+            background-color:whitesmoke; /* Brick red color */
+             /* Darker border color */
+            padding: 8px; /* Smaller padding */
+            border-radius: 6px; /* Slightly rounded corners */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            max-width: 500px; /* Adjusted max-width */
+            margin-bottom: 30px;
+        }
+
+        label {
+            font-weight: bold;
+            margin-right: 8px; /* Spacing between label and select */
+        }
+
+        select {
+            flex-grow: 1; /* Allow the select to grow and take remaining space */
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: palevioletred; /* Brick red color */
+            color: #fff;
+            padding: 10px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: palevioletred; /* Darker brick red on hover */
+        }
+
+</style>
 
 <body class="forms-layouts">
 
@@ -70,7 +112,7 @@
    
     <div id="content" class="animated fadeIn">
 
-        <h3 class="text-center mt-10 mb-25 fw-400" style="margin-top: 100px;"> Welcome {{ user.first_name }} </h3>
+        <h3 class="text-center mt-10 mb-25 fw-400" style="margin-top: 50px; margin-bottom: 50px;"> Find your Roommates here!   </h3>
         <form method="post" class="filter-form">
             {% csrf_token %}
             <label for="location">Filter by Location:</label>
@@ -81,6 +123,7 @@
             </select>
             <button type="submit">Filter</button>
         </form>
+        
 <div class="row">
     {% for person in people %}
     <div class="col-sm-6 col-md-4 col-lg-3 mb-4"> <!-- Adjusted column classes -->
@@ -92,10 +135,10 @@
                             <img src="{{ person.image_path }}" alt="{{ person.name }}" class="img-thumbnail" style="width: 230px; height: 240px;"> <!-- Added 'img-thumbnail' class -->
                         </div>
                         <h3 class="text-center">{{ person.name }}</h3> <!-- Center the name -->
-                        <p class="text-center">Location: {{ person.temporary_address }}</p> <!-- Center the location -->
+                        <p class="text-center" style="color:palevioletred;">Location: {{ person.temporary_address }}</p> <!-- Center the location -->
                         <!-- <p class="text-center">Passion: {{ person.passion }}</p> -->
-                        <div class="text-center"> <!-- Center the button -->
-                            <a href="/roomie/show_profiles" class="btn btn-default btn-lg mb-3">View</a> <!-- Adjusted margin -->
+                        <div class="text-center"> <!-- Center the button -->" 
+                            <a href="/roomie/show_profiles" class="btn btn-default btn-lg mb-3;" style="color: white; background-color: palevioletred">View</a> <!-- Adjusted margin -->
                         </div>
                     </div>
                 </div>

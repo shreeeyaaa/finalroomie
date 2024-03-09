@@ -35,6 +35,7 @@ def get_hostel_details(request):
             'available_rooms': (hostel.seater2+ hostel.seater3),
             'seater2': hostel.seater2,
             'seater3':hostel.seater3,
+            'message':hostel.message,
             'images':[{'url': url} for url in image_urls]
 
             # Add other fields as needed

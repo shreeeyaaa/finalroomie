@@ -141,7 +141,7 @@ margin-left: 4px;
         #options-icon {
             cursor: pointer;
             padding: 10px;
-            background-color: #0CB2EC;
+            background-color: palevioletred;
             color: #fff;
             border: none;
             border-radius: 5px 0 0 5px;
@@ -158,7 +158,7 @@ margin-left: 4px;
         #search-btn {
             cursor: pointer;
             padding: 10px;
-            background-color: #0CB2EC;
+            background-color: palevioletred;
             color: #fff;
             border: none;
             border-radius: 5px 0 0 5px;
@@ -208,6 +208,7 @@ margin-left: 4px;
     transform: translate(-50%, -50%);
 }
 
+
 /* Close button style */
 .close {
     color: #aaa;
@@ -220,4 +221,19 @@ margin-left: 4px;
 .close:hover,
 .close:focus {
     color: black;
+}
+
+
+@media screen and (max-width: 600px) {
+    body {
+        font-size: 14px;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    p {
+        font-size: 14px;
+    }
 }

@@ -35,13 +35,13 @@
             <div>
 
                 <ul class="nav navbar-nav navbar-left">
-                    <li class='breadcrumb-icon' style="background-color: rgb(255, 0, 0)">
+                    <li class='breadcrumb-icon' style="background-color: palevioletred">
                         <a href="/">
                             <span class="fa fa-home"></span>
                         </a>
                     </li>
                     <li class="breadcrumb-active">
-                        <a href="/index" style="font-size: 20px">Roomie</a>
+                        <a href="/index" style="font-size: 20px;">Roomie</a>
                     </li>
                 </ul>
 
@@ -92,9 +92,9 @@
                     <li class="breadcrumb-current-item"></li>
                 </ol>
                 <div class="search-bar">
-                    <button id="options-icon" onclick="toggleDropdown()">⯆</button>
+                    <button id="options-icon" onclick="toggleDropdown()"style ="background-color: palevioletred; color: white;">⯆</button>
                     <input type="text" id="search-input" placeholder="Search">
-                    <button id="search-btn" onclick="search()">🔍</button>
+                    <button id="search-btn" onclick="search()" style ="background-color: palevioletred; color: white;">🔎</button>
                     <div id="dropdown">
                         <div class="dropdown-option" onclick="selectOption('nearby hostels')"  id = "sort_by_hostels">
                             Sort by location
@@ -113,7 +113,7 @@
         <div id="content" class="animated fadeIn">
             <section id="hostels_section">
 
-            <h3 class="text-center mt10 mb25 fw400" style="margin-top: 75px;"> Welcome {{user.first_name}} </h3>
+            <h5 class="text-center mt10 mb25 fw400" style="margin-top: 75px;"> Find your hostels here!</h5>
            
             <div class="row">
 
@@ -127,12 +127,12 @@
     </div>
 </div>
 
-                {% for hostel in hostels %}
+                {% for hostel in hostels|slice:":4" %}
                     <div class="col-sm-6 col-lg-3">
                         <div class="bs-component">
-                            <div class="panel panel-primary">
-                                <div class="panel-heading">
-                                    <span class="panel-title">{{ hostel.name }}</span>
+                            <div class="customcolor">
+                                <div class="panel-heading customcolor">
+                                    <h5 style="color:black">{{ hostel.name }}</h5>
                                 </div>
                                 <div class="panel-body" style="height: 300px; overflow: hidden; text-align: center;">
                                     
@@ -141,7 +141,7 @@
                                     <!-- Assuming you want to display the first image of the hostel -->
                                     <p></br></p>
                                     
-                                        <button class="btn btn-primary btn-lg view-details-btn" onclick="openModal('{{ hostel.name }}')">
+                                    <button class="btn btn-primary view-details-btn" onclick="openModal('{{ hostel.name }}')" style="background-color: palevioletred; color: white;">
                                             <span class="button-text">View Details</span>
                                             <span class="button-icon">▶</span>
                                         </button>
@@ -371,28 +371,10 @@ function openModal(hostelName) {
             // Update modal content with hostel details
             var modalContent = modal.querySelector('.modal-content');
             modalContent.innerHTML = `<span class="close" onclick="closeModal()">&times;</span>
-                                    <h2>Hostel Details</h2>` + xhr.responseText;
+                                    <h2 style="color:black;"">Hostel Details</h2>`;
         }
 
             if (responseData.name && responseData.location) {
-                // Display name and address
-                var hostelNameElement = document.createElement('p');
-                hostelNameElement.innerHTML = `<strong>Name:</strong> ${responseData.name}`;
-                modalContent.appendChild(hostelNameElement);
-
-                var hostelAddressElement = document.createElement('p');
-                hostelAddressElement.innerHTML = `<strong>Address:</strong> ${responseData.location}`;
-                var hostelContactElement = document.createElement('p');
-                hostelContactElement.innerHTML = `<strong>Contact no:</strong> ${responseData.contact}`;
-                modalContent.appendChild(hostelAddressElement);
-                modalContent.appendChild(hostelContactElement);
-
-                var hostelAvailableElement = document.createElement('p');
-                hostelAvailableElement.innerHTML = `<strong>Available rooms:</strong> ${responseData.available_rooms}`;
-                modalContent.appendChild(hostelAvailableElement);
-
-               
-
                 if (responseData.images && responseData.images.length > 0) {
                     var imagesContainer = document.createElement('div');
                     imagesContainer.classList.add('images-container');
@@ -407,6 +389,29 @@ function openModal(hostelName) {
 
                     modalContent.appendChild(imagesContainer);
                 }
+                // Display name and address
+                var hostelNameElement = document.createElement('p');
+                hostelNameElement.innerHTML = `<strong>Name:</strong> ${responseData.name}`;
+                modalContent.appendChild(hostelNameElement);
+
+                var hostelMessageElement = document.createElement('p');
+                hostelMessageElement.innerHTML = `<strong>About:</strong> ${responseData.message}`;
+                modalContent.appendChild(hostelMessageElement);
+
+                var hostelAddressElement = document.createElement('p');
+                hostelAddressElement.innerHTML = `<strong>Address:</strong> ${responseData.location}`;
+                var hostelContactElement = document.createElement('p');
+                hostelContactElement.innerHTML = `<strong>Contact no:</strong> ${responseData.contact}`;
+                modalContent.appendChild(hostelAddressElement);
+                modalContent.appendChild(hostelContactElement);
+
+                var hostelAvailableElement = document.createElement('p');
+                hostelAvailableElement.innerHTML = `<strong>Available rooms:</strong> ${responseData.available_rooms}`;
+                modalContent.appendChild(hostelAvailableElement);
+
+               
+
+                
                 } else {
                 console.error('Name or address is not defined in hostel details:', responseData);
              }   

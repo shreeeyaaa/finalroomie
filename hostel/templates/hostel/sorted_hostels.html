@@ -3,7 +3,7 @@
 <section id="hostels_section">
     <div class="hostels-container">
        
-        <div> {{ context }}</div>
+       
         {% for item in context %}
 
             <div class="hostel-box">
@@ -22,7 +22,7 @@
                     <!-- For example: <p>{{ item.hostel.description }}</p> -->
 
                     <!-- Add a link or button to view details -->
-                    <button class="btn btn-primary btn-lg view-details-btn" onclick="openModal('{{ item.hostel.name }}')">
+                    <button class="btn btn-primary btn-lg view-details-btn" onclick="openModal('{{ item.hostel.name }}')" style="background-color: palevioletred; color:white">
                         <span class="button-text">View Details</span>
                         <span class="button-icon">▶</span>
                     </button>
