@@ -95,7 +95,8 @@
                         <p class="text-center">Location: {{ person.temporary_address }}</p> <!-- Center the location -->
                         <!-- <p class="text-center">Passion: {{ person.passion }}</p> -->
                         <div class="text-center"> <!-- Center the button -->
-                            <a href="/roomie/show_profiles" class="btn btn-default btn-lg mb-3">View</a> <!-- Adjusted margin -->
+                            <!-- <a href="/roomie/show_profiles" class="btn btn-default btn-lg mb-3">View</a> Adjusted margin -->
+                            <a href="/roomie/show_profiles?person_name={{ person.name }}" class="btn btn-default btn-lg mb-3">View</a> <!-- Adjusted margin -->
                         </div>
                     </div>
                 </div>

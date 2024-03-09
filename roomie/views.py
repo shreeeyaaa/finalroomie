@@ -246,8 +246,30 @@ def show_profiles(request):
     elif 'backward' in request.GET:
         dll.move_backward()
 
+    
+    person_name = request.GET.get('person_name')
+
+    # Find the user with the given id in the linked list
+    current_user_data = None
+    current_node = dll.head
+    while current_node:
+        if current_node.data['name'] == person_name:
+            current_user_data = current_node.data
+            break
+        current_node = current_node.next
+    
     # Get current user's data
-    current_user_data = dll.get_current_data()
+    # current_user_data = dll.get_current_data()
     print(current_user_data)
+
+    if 'forward' in request.GET:
+        # dll.move_forward()
+        current_node=current_node.next
+        current_user_data = current_node.data
+    elif 'backward' in request.GET:
+        # dll.move_backward()
+        current_node=current_node.prev
+        current_user_data = current_node.data
+
 
     return render(request, 'users.html', {'current_user_data': current_user_data})

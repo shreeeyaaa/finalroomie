@@ -6,7 +6,10 @@ html{
 }
 
   
-
+.btn-primary {
+    color: #ffffff;
+    background-color: #e06779;
+}
 .navbar-nav .nav-item .nav-link{
     color:grey;
     padding:15px;
@@ -289,4 +292,7 @@ input{
     padding:10px;
     font-weight:500;
     white-space: nowrap;
+}
+.hello{
+    color:#ac3857
 }
